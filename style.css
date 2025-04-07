@@ -1,0 +1,362 @@
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(45deg, #e2b1b1, #000000);
+    color: #e0e0e0;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Animated Stars Background */
+.stars-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.star {
+    position: absolute;
+    background: #ffffff;
+    border-radius: 50%;
+    animation: twinkle 3s infinite;
+}
+
+.star:nth-child(1) { top: 10%; left: 20%; width: 3px; height: 3px; animation-delay: 0s; }
+.star:nth-child(2) { top: 30%; left: 50%; width: 2px; height: 2px; animation-delay: 1s; }
+.star:nth-child(3) { top: 50%; left: 70%; width: 4px; height: 4px; animation-delay: 0.5s; }
+.star:nth-child(4) { top: 70%; left: 30%; width: 2px; height: 2px; animation-delay: 2s; }
+.star:nth-child(5) { top: 90%; left: 80%; width: 3px; height: 3px; animation-delay: 1.5s; }
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 1; }
+}
+
+/* Music Toggle Button */
+.music-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10;
+}
+
+#music-btn {
+    padding: 8px 16px;
+    background: linear-gradient(45deg, #e2b1b1, #6688aa);
+    color: #ffffff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s, transform 0.3s;
+}
+
+#music-btn:hover {
+    background: linear-gradient(45deg, #6688aa, #e2b1b1);
+    transform: scale(1.05);
+}
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(to right, #d8cdcd, #444);
+    padding: 4rem 2rem;
+    text-align: center;
+    color: #f0f0f0;
+    position: relative;
+    z-index: 1;
+}
+
+.hero h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 3.5rem;
+    margin: 0;
+    text-shadow: 0 0 10px #e2b1b1, 0 0 20px #e2b1b1, 0 0 30px #e2b1b1;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-top: 1rem;
+}
+
+/* Section Styling */
+.section {
+    display: flex;
+    align-items: center;
+    padding: 4rem 2rem;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: auto;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+}
+
+.section.image-left {
+    flex-direction: row;
+}
+
+.section.image-right {
+    flex-direction: row-reverse;
+}
+
+/* Text Block */
+.text-block {
+    flex: 1;
+    min-width: 280px;
+    padding: 20px;
+    height: auto;
+    position: relative;
+    border-radius: 8px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.text-block:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+.text-block h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.text-block p, .text-block ul {
+    font-size: 1rem;
+    line-height: 1.4;
+    color: #e0e0e0;
+}
+
+.text-block ul {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+/* Typewriter Animation for Favorite Anime Text */
+.typewriter {
+    display: inline-block; /* Ensure the text stays inline for the animation */
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 2px solid #e0e0e0; /* Blinking cursor effect */
+    animation: typewriter 5s steps(40) forwards, blink-cursor 0.75s step-end infinite;
+}
+
+/* Typewriter animation */
+@keyframes typewriter {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+/* Blinking cursor animation */
+@keyframes blink-cursor {
+    from, to { border-color: transparent; }
+    50% { border-color: #e0e0e0; }
+}
+
+/* Gradient Buttons for Links */
+.gradient-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    margin: 5px 0;
+    background: linear-gradient(45deg, #6688aa, #223344);
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 20px;
+    font-weight: 600;
+    transition: background 0.3s, transform 0.3s;
+}
+
+.gradient-btn:hover {
+    background: linear-gradient(45deg, #223344, #6688aa);
+    transform: scale(1.05);
+    text-decoration: none;
+}
+
+/* Image Wrapper for Hover Effects and Sparkles */
+.image-wrapper {
+    flex: 1;
+    max-width: 400px;
+    position: relative;
+}
+
+img {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s;
+}
+
+.image-wrapper:hover img {
+    transform: scale(1.05);
+}
+
+.image-wrapper {
+    perspective: 1000px;
+}
+
+.image-wrapper img {
+    transform: rotateX(0deg) rotateY(0deg);
+    transition: transform 0.5s;
+}
+
+.image-wrapper:hover img {
+    transform: rotateX(5deg) rotateY(5deg);
+}
+
+/* Sparkles Animation */
+.sparkles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 10%, transparent 10%);
+    background-size: 20px 20px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.image-wrapper:hover .sparkles {
+    opacity: 0.5;
+    animation: sparkle 5s infinite;
+}
+
+@keyframes sparkle {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.8; }
+}
+
+/* Footer */
+.footer {
+    background-color: #333;
+    padding: 2rem;
+    text-align: center;
+    border-top: 1px solid #444;
+    color: #f0f0f0;
+}
+
+.footer p {
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #e0e0e0;
+}
+
+form button {
+    margin-top: 1rem;
+    padding: 0.5rem 1.2rem;
+    border: none;
+    background-color: #008060;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s, transform 0.3s;
+}
+
+form button:hover {
+    background-color: #00664d;
+    transform: scale(1.05);
+}
+
+/* Attribution for Music */
+.attribution {
+    font-size: 0.8rem;
+    margin-top: 1rem;
+    color: #e0e0e0;
+    opacity: 0.7;
+}
+
+/* Gradient backgrounds and glow for each section */
+.section:nth-of-type(1) .text-block { /* Favorite Websites */
+    background: linear-gradient(45deg, #445566, #223344);
+    box-shadow: 0 0 10px 3px #6688aa;
+    border: 2px solid #6688aa;
+}
+
+.section:nth-of-type(1) .text-block:hover {
+    box-shadow: 0 0 20px 5px #6688aa;
+}
+
+.section:nth-of-type(2) .text-block { /* Favorite Games */
+    background: linear-gradient(45deg, #554466, #332244);
+    box-shadow: 0 0 10px 3px #8866aa;
+    border: 2px solid #8866aa;
+}
+
+.section:nth-of-type(2) .text-block:hover {
+    box-shadow: 0 0 20px 5px #8866aa;
+}
+
+.section:nth-of-type(3) .text-block { /* Favorite Anime */
+    background: linear-gradient(45deg, #665544, #443322);
+    box-shadow: 0 0 10px 3px #aa8866;
+    border: 2px solid #aa8866;
+}
+
+.section:nth-of-type(3) .text-block:hover {
+    box-shadow: 0 0 20px 5px #aa8866;
+}
+
+.section:nth-of-type(4) .text-block { /* Favorite Things To Do */
+    background: linear-gradient(45deg, #446655, #224433);
+    box-shadow: 0 0 10px 3px #66aa88;
+    border: 2px solid #66aa88;
+}
+
+.section:nth-of-type(4) .text-block:hover {
+    box-shadow: 0 0 20px 5px #66aa88;
+}
+
+/* Dynamic neon text color */
+.section:nth-of-type(1) .text-block h2 { /* Favorite Websites */
+    text-shadow: 0 0 10px #6688aa, 0 0 20px #6688aa, 0 0 30px #6688aa;
+}
+
+.section:nth-of-type(2) .text-block h2 { /* Favorite Games */
+    text-shadow: 0 0 10px #8866aa, 0 0 20px #8866aa, 0 0 30px #8866aa;
+}
+
+.section:nth-of-type(3) .text-block h2 { /* Favorite Anime */
+    text-shadow: 0 0 10px #aa8866, 0 0 20px #aa8866, 0 0 30px #aa8866;
+}
+
+.section:nth-of-type(4) .text-block h2 { /* Favorite Things To Do */
+    text-shadow: 0 0 10px #66aa88, 0 0 20px #66aa88, 0 0 30px #66aa88;
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+    .section {
+        flex-direction: column !important;
+        align-items: center;
+    }
+
+    .image-wrapper {
+        max-width: 100%;
+    }
+
+    .text-block {
+        width: 100%;
+        height: auto;
+    }
+
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+}

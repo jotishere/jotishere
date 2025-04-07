@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Harjot's Premium Web Page</title>
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Animated Stars Background -->
+    <div class="stars-background">
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+    </div>
+
+    <!-- Background Music Toggle -->
+    <div class="music-toggle">
+        <button id="music-btn">Toggle Music 🎵</button>
+        <audio id="background-music" loop>
+            <source src="BlackTrendMusic - Chill Summer Hip Hop.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+
+    <header class="hero">
+        <h1>Welcome to Harjot's Space</h1>
+        <p>A cozy little corner of favorites and vibes ✨</p>
+    </header>
+
+    <section class="section image-right">
+        <div class="image-wrapper">
+            <img src="o-moiom-pererozhdenii-v-sliz-that-time-i-got-reincarnated--7.jpg" alt="That Time I Got Reincarnated as a Slime">
+            <div class="sparkles"></div>
+        </div>
+        <div class="text-block">
+            <h2>Favorite Websites</h2>
+            <ul>
+                <li><a href="https://www.youtube.com" target="_blank" class="gradient-btn">YouTube</a></li>
+                <li><a href="https://grok.x.ai" target="_blank" class="gradient-btn">Grok (x.ai)</a></li>
+                <li><a href="https://aniwatch.com" target="_blank" class="gradient-btn">Aniwatch.com</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="section image-left">
+        <div class="image-wrapper">
+            <img src="0f5d2c0a-marvel-rivals-art.jpg" alt="Marvel Rivals Cover">
+            <div class="sparkles"></div>
+        </div>
+        <div class="text-block">
+            <h2>Favorite Games</h2>
+            <ul>
+                <li>Minecraft</li>
+                <li>Among Us</li>
+                <li>Marvel Rivals</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="section image-right">
+        <div class="image-wrapper">
+            <img src="dunmeshi.webp" alt="Dungeon Meshi Art">
+            <div class="sparkles"></div>
+        </div>
+        <div class="text-block">
+            <h2>Favorite Anime</h2>
+            <p class="typewriter">Dungeon Meshi has my heart. Food, monsters and wholesome chaos.<span class="cursor"></span></p>
+        </div>
+    </section>
+
+    <section class="section image-left">
+        <div class="image-wrapper">
+            <img src="frieren-sleeping-v0-ap1bbf3ctm0e1.jpg" alt="Frieren Sleeping">
+            <div class="sparkles"></div>
+        </div>
+        <div class="text-block">
+            <h2>Favorite Things To Do</h2>
+            <p>Some stuff I like to do:</p>
+            <ul>
+                <li>Sleep like Frieren 😴</li>
+                <li>Eat Shahi Paneer & Naan</li>
+            </ul>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>Who's the Best Shark?</p>
+        <form>
+            <label><input type="radio" name="shark" value="jeff" /> Jeff</label>
+            <label><input type="radio" name="shark" value="greatwhite" /> Great White</label>
+            <label><input type="radio" name="shark" value="hammerhead" /> Hammerhead</label>
+            <label><input type="radio" name="shark" value="tiger" /> Tiger</label>
+            <br>
+            <button type="submit">Submit</button>
+        </form>
+        <p class="attribution">Music: "Chill Summer Hip Hop" by BlackTrendMusic, Free Music Archive</p>
+    </footer>
+
+    <script>
+        // Background Music Toggle
+        const musicBtn = document.getElementById('music-btn');
+        const backgroundMusic = document.getElementById('background-music');
+        backgroundMusic.volume = 0.3; // Set volume to 30% for a subtle effect
+        musicBtn.addEventListener('click', () => {
+            if (backgroundMusic.paused) {
+                backgroundMusic.play();
+                musicBtn.textContent = 'Pause Music 🎵';
+            } else {
+                backgroundMusic.pause();
+                musicBtn.textContent = 'Play Music 🎵';
+            }
+        });
+    </script>
+</body>
+</html>
