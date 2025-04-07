@@ -20,6 +20,15 @@
         <div class="star"></div>
     </div>
 
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <ul>
+            <li><a href="index.html" class="nav-link active">Home</a></li>
+            <li><a href="status.html" class="nav-link">Status</a></li>
+            <li><a href="contact.html" class="nav-link">Contact Us</a></li>
+        </ul>
+    </nav>
+
     <!-- Background Music Toggle -->
     <div class="music-toggle">
         <button id="music-btn">Toggle Music 🎵</button>
@@ -273,7 +282,6 @@
             }
         }
 
-        // Initialize dots
         for (let i = 0; i < 50; i++) {
             dots.push(new Dot());
         }
@@ -289,7 +297,6 @@
 
         animateDots();
 
-        // Resize canvas on window resize
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
