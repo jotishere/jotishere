@@ -473,8 +473,11 @@ form button:hover {
     .navbar ul {
         flex-direction: row;
         gap: 1rem;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
         justify-content: center;
+        overflow-x: auto;
+        white-space: nowrap;
+        padding: 0 1rem;
     }
 
     .navbar a {
