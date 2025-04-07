@@ -6,12 +6,11 @@
     <title>Harjot's Status</title>
     <link rel="stylesheet" href="style.css" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f47e.png">
 </head>
 <body>
-    <!-- Background Moving Dots -->
     <canvas id="background-dots"></canvas>
 
-    <!-- Animated Stars Background -->
     <div class="stars-background">
         <div class="star"></div>
         <div class="star"></div>
@@ -20,7 +19,6 @@
         <div class="star"></div>
     </div>
 
-    <!-- Navigation Bar -->
     <nav class="navbar">
         <ul>
             <li><a href="index.html" class="nav-link">Home</a></li>
@@ -29,7 +27,6 @@
         </ul>
     </nav>
 
-    <!-- Background Music Toggle -->
     <div class="music-toggle">
         <button id="music-btn">Toggle Music 🎵</button>
         <audio id="background-music" loop>
@@ -55,7 +52,7 @@
             <h2>Recently Played</h2>
             <ul>
                 <li>Marvel Rivals - Loving the new characters!</li>
-                <li>Minecraft - Built a cute anime-themed village.</li>
+                <li>Minecraft - Wanna build a fantasy-themed village.</li>
             </ul>
         </div>
     </section>
@@ -75,7 +72,6 @@
     </footer>
 
     <script>
-        // Background Music Toggle
         const musicBtn = document.getElementById('music-btn');
         const backgroundMusic = document.getElementById('background-music');
         backgroundMusic.volume = 0.3;
@@ -89,7 +85,6 @@
             }
         });
 
-        // Fade-In Animation on Scroll
         const sections = document.querySelectorAll('.fade-in');
         const observerOptions = {
             root: null,
@@ -110,7 +105,6 @@
             observer.observe(section);
         });
 
-        // Interactive Shark Form Submission
         const sharkForm = document.getElementById('shark-form');
         const sharkMessage = document.getElementById('shark-message');
 
@@ -127,7 +121,6 @@
             }
         });
 
-        // Background Moving Dots
         const canvas = document.getElementById('background-dots');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
