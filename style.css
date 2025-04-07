@@ -143,6 +143,7 @@ body {
 .section {
     display: flex;
     align-items: center;
+    justify-content: center; /* Center content horizontally */
     padding: 4rem 2rem;
     gap: 2rem;
     max-width: 1200px;
@@ -169,6 +170,9 @@ body {
     position: relative;
     border-radius: 8px;
     transition: transform 0.3s, box-shadow 0.3s;
+    background: linear-gradient(45deg, #445566, #223344); /* Default background */
+    box-shadow: 0 0 10px 3px #6688aa;
+    border: 2px solid #6688aa;
 }
 
 .text-block:hover {
@@ -427,7 +431,7 @@ form button:hover {
     opacity: 1;
 }
 
-/* Gradient backgrounds and glow for each section */
+/* Gradient backgrounds and glow for each section on index.html */
 .section:nth-of-type(1) .text-block { /* Favorite Websites */
     background: linear-gradient(45deg, #445566, #223344);
     box-shadow: 0 0 10px 3px #6688aa;
@@ -468,7 +472,39 @@ form button:hover {
     box-shadow: 0 0 20px 5px #66aa88;
 }
 
-/* Dynamic neon text color */
+/* Gradient backgrounds and glow for sections on status.html */
+body:has(h1:where(:contains("Status"))) .section:nth-of-type(1) .text-block { /* Current Mood */
+    background: linear-gradient(45deg, #554466, #332244);
+    box-shadow: 0 0 10px 3px #8866aa;
+    border: 2px solid #8866aa;
+}
+
+body:has(h1:where(:contains("Status"))) .section:nth-of-type(1) .text-block:hover {
+    box-shadow: 0 0 20px 5px #8866aa;
+}
+
+body:has(h1:where(:contains("Status"))) .section:nth-of-type(2) .text-block { /* Recently Played */
+    background: linear-gradient(45deg, #446655, #224433);
+    box-shadow: 0 0 10px 3px #66aa88;
+    border: 2px solid #66aa88;
+}
+
+body:has(h1:where(:contains("Status"))) .section:nth-of-type(2) .text-block:hover {
+    box-shadow: 0 0 20px 5px #66aa88;
+}
+
+/* Gradient backgrounds and glow for sections on contact.html */
+body:has(h1:where(:contains("Contact Us"))) .section .text-block { /* Get in Touch */
+    background: linear-gradient(45deg, #665544, #443322);
+    box-shadow: 0 0 10px 3px #aa8866;
+    border: 2px solid #aa8866;
+}
+
+body:has(h1:where(:contains("Contact Us"))) .section .text-block:hover {
+    box-shadow: 0 0 20px 5px #aa8866;
+}
+
+/* Dynamic neon text color for index.html */
 .section:nth-of-type(1) .text-block h2 { /* Favorite Websites */
     text-shadow: 0 0 10px #6688aa, 0 0 20px #6688aa, 0 0 30px #6688aa;
 }
@@ -485,20 +521,41 @@ form button:hover {
     text-shadow: 0 0 10px #66aa88, 0 0 20px #66aa88, 0 0 30px #66aa88;
 }
 
+/* Dynamic neon text color for status.html */
+body:has(h1:where(:contains("Status"))) .section:nth-of-type(1) .text-block h2 { /* Current Mood */
+    text-shadow: 0 0 10px #8866aa, 0 0 20px #8866aa, 0 0 30px #8866aa;
+}
+
+body:has(h1:where(:contains("Status"))) .section:nth-of-type(2) .text-block h2 { /* Recently Played */
+    text-shadow: 0 0 10px #66aa88, 0 0 20px #66aa88, 0 0 30px #66aa88;
+}
+
+/* Dynamic neon text color for contact.html */
+body:has(h1:where(:contains("Contact Us"))) .section .text-block h2 { /* Get in Touch */
+    text-shadow: 0 0 10px #aa8866, 0 0 20px #aa8866, 0 0 30px #aa8866;
+}
+
 /* Responsive Design */
 @media (max-width: 900px) {
     .navbar ul {
-        flex-direction: column;
+        flex-direction: row; /* Keep navbar links horizontal on mobile */
         gap: 1rem;
+        flex-wrap: wrap; /* Allow wrapping if needed */
+        justify-content: center;
+    }
+
+    .navbar a {
+        font-size: 0.9rem; /* Slightly smaller font size for mobile */
+        padding: 0.5rem; /* Add padding for better tap targets */
     }
 
     .music-toggle {
-        top: 120px; /* Adjusted for stacked navbar */
+        top: 60px; /* Keep music toggle position consistent */
         right: 10px;
     }
 
     .hero {
-        margin-top: 120px; /* Adjusted for stacked navbar */
+        margin-top: 60px; /* Adjusted for navbar */
         padding: 2rem 1rem;
     }
 
