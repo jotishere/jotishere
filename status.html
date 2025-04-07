@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Harjot's Status</title>
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Background Moving Dots -->
+    <canvas id="background-dots"></canvas>
+
+    <!-- Animated Stars Background -->
+    <div class="stars-background">
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <ul>
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li><a href="status.html" class="nav-link active">Status</a></li>
+            <li><a href="contact.html" class="nav-link">Contact Us</a></li>
+        </ul>
+    </nav>
+
+    <!-- Background Music Toggle -->
+    <div class="music-toggle">
+        <button id="music-btn">Toggle Music 🎵</button>
+        <audio id="background-music" loop>
+            <source src="BlackTrendMusic - Chill Summer Hip Hop.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+
+    <header class="hero">
+        <h1>Status</h1>
+        <p>Here’s what I’m up to! 🌟</p>
+    </header>
+
+    <section class="section fade-in">
+        <div class="text-block">
+            <h2>Current Mood</h2>
+            <p>Feeling cozy and watching some anime while sipping hot chocolate. 🍫</p>
+        </div>
+    </section>
+
+    <section class="section fade-in">
+        <div class="text-block">
+            <h2>Recently Played</h2>
+            <ul>
+                <li>Marvel Rivals - Loving the new characters!</li>
+                <li>Minecraft - Built a cute anime-themed village.</li>
+            </ul>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>Who's the Best Shark?</p>
+        <form id="shark-form">
+            <label><input type="radio" name="shark" value="Jeff" /> Jeff</label>
+            <label><input type="radio" name="shark" value="Great White" /> Great White</label>
+            <label><input type="radio" name="shark" value="Hammerhead" /> Hammerhead</label>
+            <label><input type="radio" name="shark" value="Tiger" /> Tiger</label>
+            <br>
+            <button type="submit">Submit</button>
+        </form>
+        <div id="shark-message" class="shark-message"></div>
+        <p class="attribution">Music: "Chill Summer Hip Hop" by BlackTrendMusic, Free Music Archive</p>
+    </footer>
+
+    <script>
+        // Background Music Toggle
+        const musicBtn = document.getElementById('music-btn');
+        const backgroundMusic = document.getElementById('background-music');
+        backgroundMusic.volume = 0.3;
+        musicBtn.addEventListener('click', () => {
+            if (backgroundMusic.paused) {
+                backgroundMusic.play();
+                musicBtn.textContent = 'Pause Music 🎵';
+            } else {
+                backgroundMusic.pause();
+                musicBtn.textContent = 'Play Music 🎵';
+            }
+        });
+
+        // Fade-In Animation on Scroll
+        const sections = document.querySelectorAll('.fade-in');
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // Interactive Shark Form Submission
+        const sharkForm = document.getElementById('shark-form');
+        const sharkMessage = document.getElementById('shark-message');
+
+        sharkForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const selectedShark = sharkForm.querySelector('input[name="shark"]:checked');
+            if (selectedShark) {
+                const sharkName = selectedShark.value;
+                sharkMessage.textContent = `You picked ${sharkName}! Great choice! 🦈`;
+                sharkMessage.classList.add('shark-animate');
+            } else {
+                sharkMessage.textContent = 'Please pick a shark before submitting! 🦈';
+                sharkMessage.classList.add('shark-animate');
+            }
+        });
+
+        // Background Moving Dots
+        const canvas = document.getElementById('background-dots');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let dots = [];
+
+        class Dot {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * 0.5 - 0.25;
+                this.opacity = Math.random() * 0.3 + 0.2;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+            }
+
+            draw() {
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 50; i++) {
+            dots.push(new Dot());
+        }
+
+        function animateDots() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < dots.length; i++) {
+                dots[i].update();
+                dots[i].draw();
+            }
+            requestAnimationFrame(animateDots);
+        }
+
+        animateDots();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>
