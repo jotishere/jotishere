@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Harjot's Contact</title>
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Background Moving Dots -->
+    <canvas id="background-dots"></canvas>
+
+    <!-- Animated Stars Background -->
+    <div class="stars-background">
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <ul>
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li><a href="status.html" class="nav-link">Status</a></li>
+            <li><a href="contact.html" class="nav-link active">Contact Us</a></li>
+        </ul>
+    </nav>
+
+    <!-- Background Music Toggle -->
+    <div class="music-toggle">
+        <button id="music-btn">Toggle Music 🎵</button>
+        <audio id="background-music" loop>
+            <source src="BlackTrendMusic - Chill Summer Hip Hop.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+
+    <header class="hero">
+        <h1>Contact Us</h1>
+        <p>Reach out to me! 📬</p>
+    </header>
+
+    <section class="section fade-in">
+        <div class="text-block">
+            <h2>Get in Touch</h2>
+            <p>Feel free to send me a message through the form below or reach out on social media.</p>
+            <form id="contact-form">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                <br>
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" required></textarea>
+                <br>
+                <button type="submit">Send Message</button>
+            </form>
+            <div id="contact-message" class="contact-message"></div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>Who's the Best Shark?</p>
+        <form id="shark-form">
+            <label><input type="radio" name="shark" value="Jeff" /> Jeff</label>
+            <label><input type="radio" name="shark" value="Great White" /> Great White</label>
+            <label><input type="radio" name="shark" value="Hammerhead" /> Hammerhead</label>
+            <label><input type="radio" name="shark" value="Tiger" /> Tiger</label>
+            <br>
+            <button type="submit">Submit</button>
+        </form>
+        <div id="shark-message" class="shark-message"></div>
+        <p class="attribution">Music: "Chill Summer Hip Hop" by BlackTrendMusic, Free Music Archive</p>
+    </footer>
+
+    <script>
+        // Background Music Toggle
+        const musicBtn = document.getElementById('music-btn');
+        const backgroundMusic = document.getElementById('background-music');
+        backgroundMusic.volume = 0.3;
+        musicBtn.addEventListener('click', () => {
+            if (backgroundMusic.paused) {
+                backgroundMusic.play();
+                musicBtn.textContent = 'Pause Music 🎵';
+            } else {
+                backgroundMusic.pause();
+                musicBtn.textContent = 'Play Music 🎵';
+            }
+        });
+
+        // Fade-In Animation on Scroll
+        const sections = document.querySelectorAll('.fade-in');
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // Interactive Shark Form Submission
+        const sharkForm = document.getElementById('shark-form');
+        const sharkMessage = document.getElementById('shark-message');
+
+        sharkForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const selectedShark = sharkForm.querySelector('input[name="shark"]:checked');
+            if (selectedShark) {
+                const sharkName = selectedShark.value;
+                sharkMessage.textContent = `You picked ${sharkName}! Great choice! 🦈`;
+                sharkMessage.classList.add('shark-animate');
+            } else {
+                sharkMessage.textContent = 'Please pick a shark before submitting! 🦈';
+                sharkMessage.classList.add('shark-animate');
+            }
+        });
+
+        // Contact Form Submission
+        const contactForm = document.getElementById('contact-form');
+        const contactMessage = document.getElementById('contact-message');
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = contactForm.querySelector('#name').value;
+            const message = contactForm.querySelector('#message').value;
+
+            if (name && message) {
+                contactMessage.textContent = `Thank you, ${name}! Your message has been sent. 📬`;
+                contactMessage.classList.add('contact-animate');
+                contactForm.reset();
+            } else {
+                contactMessage.textContent = 'Please fill out all fields before submitting! 📬';
+                contactMessage.classList.add('contact-animate');
+            }
+        });
+
+        // Background Moving Dots
+        const canvas = document.getElementById('background-dots');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let dots = [];
+
+        class Dot {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * 0.5 - 0.25;
+                this.opacity = Math.random() * 0.3 + 0.2;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+            }
+
+            draw() {
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 50; i++) {
+            dots.push(new Dot());
+        }
+
+        function animateDots() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < dots.length; i++) {
+                dots[i].update();
+                dots[i].draw();
+            }
+            requestAnimationFrame(animateDots);
+        }
+
+        animateDots();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>
