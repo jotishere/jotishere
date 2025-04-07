@@ -8,20 +8,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Background Particles -->
-    <canvas id="background-particles"></canvas>
+    <!-- Background Moving Dots -->
+    <canvas id="background-dots"></canvas>
 
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-        <ul>
-            <li><a href="#home" class="nav-link active">Home</a></li>
-            <li><a href="#favorite-websites" class="nav-link">Favorite Websites</a></li>
-            <li><a href="#favorite-games" class="nav-link">Favorite Games</a></li>
-            <li><a href="#favorite-anime" class="nav-link">Favorite Anime</a></li>
-            <li><a href="#favorite-things" class="nav-link">Favorite Things To Do</a></li>
-            <li><a href="#favorite-music" class="nav-link">Favorite Music</a></li>
-        </ul>
-    </nav>
+    <!-- Animated Stars Background -->
+    <div class="stars-background">
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+    </div>
 
     <!-- Background Music Toggle -->
     <div class="music-toggle">
@@ -32,12 +29,12 @@
         </audio>
     </div>
 
-    <header id="home" class="hero">
+    <header class="hero">
         <h1 id="welcome-message">Welcome to Harjot's Space</h1>
         <p>A cozy little corner of favorites and vibes ✨</p>
     </header>
 
-    <section id="favorite-websites" class="section image-right fade-in">
+    <section class="section image-right fade-in">
         <div class="image-wrapper">
             <img src="o-moiom-pererozhdenii-v-sliz-that-time-i-got-reincarnated--7.jpg" alt="That Time I Got Reincarnated as a Slime">
             <div class="sparkles"></div>
@@ -53,7 +50,7 @@
         </div>
     </section>
 
-    <section id="favorite-games" class="section image-left fade-in">
+    <section class="section image-left fade-in">
         <div class="image-wrapper">
             <img src="0f5d2c0a-marvel-rivals-art.jpg" alt="Marvel Rivals Cover">
             <div class="sparkles"></div>
@@ -69,7 +66,7 @@
         </div>
     </section>
 
-    <section id="favorite-anime" class="section image-right fade-in">
+    <section class="section image-right fade-in">
         <div class="image-wrapper">
             <img src="dunmeshi.webp" alt="Dungeon Meshi Art">
             <div class="sparkles"></div>
@@ -81,7 +78,7 @@
         </div>
     </section>
 
-    <section id="favorite-things" class="section image-left fade-in">
+    <section class="section image-left fade-in">
         <div class="image-wrapper">
             <img src="frieren-sleeping-v0-ap1bbf3ctm0e1.jpg" alt="Frieren Sleeping">
             <div class="sparkles"></div>
@@ -93,23 +90,6 @@
             <ul>
                 <li>Sleep like Frieren 😴</li>
                 <li>Eat Shahi Paneer & Naan</li>
-            </ul>
-        </div>
-    </section>
-
-    <section id="favorite-music" class="section image-right fade-in">
-        <div class="image-wrapper">
-            <img src="dunmeshi.webp" alt="Dungeon Meshi Art">
-            <div class="sparkles"></div>
-            <canvas class="particle-canvas"></canvas>
-        </div>
-        <div class="text-block">
-            <h2>Favorite Music</h2>
-            <p>Some tracks I love to vibe to:</p>
-            <ul>
-                <li>"Chill Summer Hip Hop" by BlackTrendMusic</li>
-                <li>"Lo-Fi Beats" by Chillhop Music</li>
-                <li>"Anime Openings" by Various Artists</li>
             </ul>
         </div>
     </section>
@@ -257,22 +237,22 @@
             animateParticles();
         });
 
-        // Background Particle Effect
-        const canvas = document.getElementById('background-particles');
+        // Background Moving Dots
+        const canvas = document.getElementById('background-dots');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
-        let backgroundParticles = [];
+        let dots = [];
 
-        class BackgroundParticle {
+        class Dot {
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 3 + 1;
-                this.speedX = Math.random() * 1 - 0.5;
-                this.speedY = Math.random() * 1 - 0.5;
-                this.opacity = Math.random() * 0.5 + 0.3;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * 0.5 - 0.25;
+                this.opacity = Math.random() * 0.3 + 0.2;
             }
 
             update() {
@@ -283,9 +263,6 @@
                 if (this.x < 0) this.x = canvas.width;
                 if (this.y > canvas.height) this.y = 0;
                 if (this.y < 0) this.y = canvas.height;
-
-                this.opacity -= 0.005;
-                if (this.opacity < 0) this.opacity = 0.5;
             }
 
             draw() {
@@ -296,41 +273,26 @@
             }
         }
 
-        // Initialize particles
-        for (let i = 0; i < 100; i++) {
-            backgroundParticles.push(new BackgroundParticle());
+        // Initialize dots
+        for (let i = 0; i < 50; i++) {
+            dots.push(new Dot());
         }
 
-        function animateBackgroundParticles() {
+        function animateDots() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < backgroundParticles.length; i++) {
-                backgroundParticles[i].update();
-                backgroundParticles[i].draw();
+            for (let i = 0; i < dots.length; i++) {
+                dots[i].update();
+                dots[i].draw();
             }
-            requestAnimationFrame(animateBackgroundParticles);
+            requestAnimationFrame(animateDots);
         }
 
-        animateBackgroundParticles();
+        animateDots();
 
         // Resize canvas on window resize
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-        });
-
-        // Navigation Bar Active Link
-        const navLinks = document.querySelectorAll('.nav-link');
-
-        navLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                navLinks.forEach(l => l.classList.remove('active'));
-                link.classList.add('active');
-
-                const targetId = link.getAttribute('href').substring(1);
-                const targetSection = document.getElementById(targetId);
-                targetSection.scrollIntoView({ behavior: 'smooth' });
-            });
         });
     </script>
 </body>
