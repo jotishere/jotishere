@@ -8,14 +8,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Animated Stars Background -->
-    <div class="stars-background">
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-    </div>
+    <!-- Background Particles -->
+    <canvas id="background-particles"></canvas>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <ul>
+            <li><a href="#home" class="nav-link active">Home</a></li>
+            <li><a href="#favorite-websites" class="nav-link">Favorite Websites</a></li>
+            <li><a href="#favorite-games" class="nav-link">Favorite Games</a></li>
+            <li><a href="#favorite-anime" class="nav-link">Favorite Anime</a></li>
+            <li><a href="#favorite-things" class="nav-link">Favorite Things To Do</a></li>
+            <li><a href="#favorite-music" class="nav-link">Favorite Music</a></li>
+        </ul>
+    </nav>
 
     <!-- Background Music Toggle -->
     <div class="music-toggle">
@@ -26,15 +32,16 @@
         </audio>
     </div>
 
-    <header class="hero">
-        <h1>Welcome to Harjot's Space</h1>
+    <header id="home" class="hero">
+        <h1 id="welcome-message">Welcome to Harjot's Space</h1>
         <p>A cozy little corner of favorites and vibes ✨</p>
     </header>
 
-    <section class="section image-right">
+    <section id="favorite-websites" class="section image-right fade-in">
         <div class="image-wrapper">
             <img src="o-moiom-pererozhdenii-v-sliz-that-time-i-got-reincarnated--7.jpg" alt="That Time I Got Reincarnated as a Slime">
             <div class="sparkles"></div>
+            <canvas class="particle-canvas"></canvas>
         </div>
         <div class="text-block">
             <h2>Favorite Websites</h2>
@@ -46,10 +53,11 @@
         </div>
     </section>
 
-    <section class="section image-left">
+    <section id="favorite-games" class="section image-left fade-in">
         <div class="image-wrapper">
             <img src="0f5d2c0a-marvel-rivals-art.jpg" alt="Marvel Rivals Cover">
             <div class="sparkles"></div>
+            <canvas class="particle-canvas"></canvas>
         </div>
         <div class="text-block">
             <h2>Favorite Games</h2>
@@ -61,21 +69,23 @@
         </div>
     </section>
 
-    <section class="section image-right">
+    <section id="favorite-anime" class="section image-right fade-in">
         <div class="image-wrapper">
             <img src="dunmeshi.webp" alt="Dungeon Meshi Art">
             <div class="sparkles"></div>
+            <canvas class="particle-canvas"></canvas>
         </div>
         <div class="text-block">
             <h2>Favorite Anime</h2>
-            <p class="typewriter">Dungeon Meshi has my heart. Food, monsters and wholesome chaos.<span class="cursor"></span></p>
+            <p class="typewriter">Dungeon Meshi has my heart. Food, monsters and wholesome chaos.</p>
         </div>
     </section>
 
-    <section class="section image-left">
+    <section id="favorite-things" class="section image-left fade-in">
         <div class="image-wrapper">
             <img src="frieren-sleeping-v0-ap1bbf3ctm0e1.jpg" alt="Frieren Sleeping">
             <div class="sparkles"></div>
+            <canvas class="particle-canvas"></canvas>
         </div>
         <div class="text-block">
             <h2>Favorite Things To Do</h2>
@@ -87,16 +97,34 @@
         </div>
     </section>
 
+    <section id="favorite-music" class="section image-right fade-in">
+        <div class="image-wrapper">
+            <img src="dunmeshi.webp" alt="Dungeon Meshi Art">
+            <div class="sparkles"></div>
+            <canvas class="particle-canvas"></canvas>
+        </div>
+        <div class="text-block">
+            <h2>Favorite Music</h2>
+            <p>Some tracks I love to vibe to:</p>
+            <ul>
+                <li>"Chill Summer Hip Hop" by BlackTrendMusic</li>
+                <li>"Lo-Fi Beats" by Chillhop Music</li>
+                <li>"Anime Openings" by Various Artists</li>
+            </ul>
+        </div>
+    </section>
+
     <footer class="footer">
         <p>Who's the Best Shark?</p>
-        <form>
-            <label><input type="radio" name="shark" value="jeff" /> Jeff</label>
-            <label><input type="radio" name="shark" value="greatwhite" /> Great White</label>
-            <label><input type="radio" name="shark" value="hammerhead" /> Hammerhead</label>
-            <label><input type="radio" name="shark" value="tiger" /> Tiger</label>
+        <form id="shark-form">
+            <label><input type="radio" name="shark" value="Jeff" /> Jeff</label>
+            <label><input type="radio" name="shark" value="Great White" /> Great White</label>
+            <label><input type="radio" name="shark" value="Hammerhead" /> Hammerhead</label>
+            <label><input type="radio" name="shark" value="Tiger" /> Tiger</label>
             <br>
             <button type="submit">Submit</button>
         </form>
+        <div id="shark-message" class="shark-message"></div>
         <p class="attribution">Music: "Chill Summer Hip Hop" by BlackTrendMusic, Free Music Archive</p>
     </footer>
 
@@ -104,7 +132,7 @@
         // Background Music Toggle
         const musicBtn = document.getElementById('music-btn');
         const backgroundMusic = document.getElementById('background-music');
-        backgroundMusic.volume = 0.3; // Set volume to 30% for a subtle effect
+        backgroundMusic.volume = 0.3;
         musicBtn.addEventListener('click', () => {
             if (backgroundMusic.paused) {
                 backgroundMusic.play();
@@ -113,6 +141,196 @@
                 backgroundMusic.pause();
                 musicBtn.textContent = 'Play Music 🎵';
             }
+        });
+
+        // Fade-In Animation on Scroll
+        const sections = document.querySelectorAll('.fade-in');
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // Interactive Shark Form Submission
+        const sharkForm = document.getElementById('shark-form');
+        const sharkMessage = document.getElementById('shark-message');
+
+        sharkForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const selectedShark = sharkForm.querySelector('input[name="shark"]:checked');
+            if (selectedShark) {
+                const sharkName = selectedShark.value;
+                sharkMessage.textContent = `You picked ${sharkName}! Great choice! 🦈`;
+                sharkMessage.classList.add('shark-animate');
+            } else {
+                sharkMessage.textContent = 'Please pick a shark before submitting! 🦈';
+                sharkMessage.classList.add('shark-animate');
+            }
+        });
+
+        // Dynamic Welcome Message Based on Time of Day
+        const welcomeMessage = document.getElementById('welcome-message');
+        const hour = new Date().getHours();
+        let greeting;
+
+        if (hour >= 5 && hour < 12) {
+            greeting = 'Good Morning, Welcome to Harjot\'s Space!';
+        } else if (hour >= 12 && hour < 17) {
+            greeting = 'Good Afternoon, Welcome to Harjot\'s Space!';
+        } else if (hour >= 17 && hour < 22) {
+            greeting = 'Good Evening, Welcome to Harjot\'s Space!';
+        } else {
+            greeting = 'Good Night, Welcome to Harjot\'s Space!';
+        }
+
+        welcomeMessage.textContent = greeting;
+
+        // Enhanced Sparkle Particles on Image Hover
+        const imageWrappers = document.querySelectorAll('.image-wrapper');
+
+        imageWrappers.forEach(wrapper => {
+            const canvas = wrapper.querySelector('.particle-canvas');
+            const ctx = canvas.getContext('2d');
+            let particlesArray = [];
+
+            const img = wrapper.querySelector('img');
+            canvas.width = img.offsetWidth;
+            canvas.height = img.offsetHeight;
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 5 + 1;
+                    this.speedX = Math.random() * 3 - 1.5;
+                    this.speedY = Math.random() * 3 - 1.5;
+                    this.life = 50;
+                }
+
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    this.life--;
+                    this.size *= 0.95;
+                }
+
+                draw() {
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+            wrapper.addEventListener('mouseenter', () => {
+                for (let i = 0; i < 20; i++) {
+                    particlesArray.push(new Particle());
+                }
+            });
+
+            function animateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let i = 0; i < particlesArray.length; i++) {
+                    particlesArray[i].update();
+                    particlesArray[i].draw();
+                    if (particlesArray[i].life <= 0 || particlesArray[i].size <= 0.1) {
+                        particlesArray.splice(i, 1);
+                        i--;
+                    }
+                }
+                requestAnimationFrame(animateParticles);
+            }
+
+            animateParticles();
+        });
+
+        // Background Particle Effect
+        const canvas = document.getElementById('background-particles');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let backgroundParticles = [];
+
+        class BackgroundParticle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = Math.random() * 1 - 0.5;
+                this.speedY = Math.random() * 1 - 0.5;
+                this.opacity = Math.random() * 0.5 + 0.3;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+
+                this.opacity -= 0.005;
+                if (this.opacity < 0) this.opacity = 0.5;
+            }
+
+            draw() {
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        // Initialize particles
+        for (let i = 0; i < 100; i++) {
+            backgroundParticles.push(new BackgroundParticle());
+        }
+
+        function animateBackgroundParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < backgroundParticles.length; i++) {
+                backgroundParticles[i].update();
+                backgroundParticles[i].draw();
+            }
+            requestAnimationFrame(animateBackgroundParticles);
+        }
+
+        animateBackgroundParticles();
+
+        // Resize canvas on window resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Navigation Bar Active Link
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                navLinks.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+
+                const targetId = link.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                targetSection.scrollIntoView({ behavior: 'smooth' });
+            });
         });
     </script>
 </body>
